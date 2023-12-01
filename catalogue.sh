@@ -35,7 +35,7 @@ curl -SLO https://rpm.nodesource.com/nsolid_setup_rpm.sh
 
 chmod 500 nsolid_setup_rpm.sh
 
-sh nsolid_setup_rpm.sh 21
+sh nsolid_setup_rpm.sh 18
 
 VALIDATE $? "Setup NodeJS"
 

@@ -29,10 +29,19 @@ VALIDATE(){
 }
 
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>> $LOGFILE
+#curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>> $LOGFILE
+
+curl -SLO https://rpm.nodesource.com/nsolid_setup_rpm.sh
+
+chmod 500 nsolid_setup_rpm.sh
+
+sh nsolid_setup_rpm.sh 21
+
 VALIDATE $? "Setup NodeJS"
 
-yum install nodejs -y &>> $LOGFILE
+yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
+
+# yum install nodejs -y &>> $LOGFILE
 
 VALIDATE $? "Installing NodeJS"
 

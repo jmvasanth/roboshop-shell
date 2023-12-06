@@ -77,22 +77,10 @@ systemctl daemon-reload &>> $LOGFILE
 
 VALIDATE $? "Daemon reload"
 
-systemctl enable cart
+systemctl enable cart &>> $LOGFILE
 
 VALIDATE $? "Enabling cart service"
 
-systemctl start cart
+systemctl start cart &>> $LOGFILE
 
 VALIDATE $? "Starting cart Service"
-
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
-
-VALIDATE $? "Copying MongoDB repo"
-
-yum install mongodb-org-shell -y
-
-VALIDATE $? "Installing MongoDB shell"
-
-mongo --host mongodb.vgsk.online </app/schema/cart.js
-
-VALIDATE $? "Loading MongoDB schema"

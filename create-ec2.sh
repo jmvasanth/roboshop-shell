@@ -9,12 +9,13 @@ SECURITY_GROUP_ID=sg-0572c2ba2bf773656
 
 for i in "${NAMES[@]}"
 do 
-    if [ [ $i == "mongodb" || $i == "mysql" ] ]
+    if [[ $i == "mongodb" || $i == "mysql" ]]
     then
         INSTANCE_TYPE="t3.medium"
     else
         INSTANCE_TYPE="t2.micro"
     fi
     echo "Creating $i instance"
-    aws ec2 run-instances --image-id $IMAGE_ID --instance-type t2.micro --security-group-ids $SECURITY_GROUP_ID  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]"
+    IP_ADDRESS=$(aws ec2 run-instances --image-id $IMAGE_ID --instance-type t2.micro --security-group-ids $SECURITY_GROUP_ID  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" | jq -r '.Instances[0].PrivateIPAddress')
+    echo "Created $i instance: $IP_ADDRESS"
 done
